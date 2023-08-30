@@ -1,0 +1,26 @@
+/*className="w-64 px-4 py-2 m-auto rounded-full"*/
+
+.container {
+    margin: auto;
+    width: 100%;
+    position: relative;
+}
+.suggestionsContainer {
+    position: absolute;
+    width: 100%;
+}
+
+.input {
+    width: 100%;
+    padding: 4px 8px 4px 8px;
+    margin: auto;
+    border-radius: 8px;
+    border-color: slategray;
+}
+
+.input:focus {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
