@@ -1,6 +1,8 @@
 import ForceComponent from "@/components/ForceComponent";
 import ForceGraph from "@/components/ForceGraph";
 import { TrackData, Track } from "@/components/types";
+import { redirect } from "next/navigation";
+import SelectEmbedding from "@/components/SelectEmbedding";
 
 type Link = {
     source: string;
@@ -232,10 +234,14 @@ const processedDataToGraphData = (processedData: Track[]): TrackData => {
 export default async function Page({
     params,
 }: {
-    params: { song_id: string };
+    params: { song_id: string; db_type: string };
 }) {
+    const db_types = ["cosine", "euclidean", "manhattan"];
+    if (!db_types.includes(params.db_type)) {
+        redirect(`/songs/${params.song_id}/cosine`);
+    }
     const data = await fetch(
-        `http://127.0.0.1:5000/id?song=${params.song_id}`,
+        `http://127.0.0.1:5000/id?song=${params.song_id}&db=${params.db_type}`,
         { next: { revalidate: 5000 } },
     );
 
@@ -243,6 +249,7 @@ export default async function Page({
     const graphData = processedDataToGraphData(parseResponseData(jsonData));
     return (
         <div className="relative">
+            <SelectEmbedding song_id={params.song_id}></SelectEmbedding>
             <ForceGraph data={graphData}></ForceGraph>
             <div className="absolute z-10 w-[20%] bg-black h-full top-0 left-[80%] flex flex-col gap-4 overflow-y-scroll p-4 overflow-x-clip">
                 <p className="py-2 m-auto text-2xl font-bold text-center text-white">

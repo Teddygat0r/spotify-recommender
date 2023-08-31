@@ -104,7 +104,7 @@ export default function SearchBar({ SongList }: { SongList: ShortTrack[] }) {
                 />
                 <Link
                     className="px-2 py-1 font-bold duration-300 rounded-md bg-slate-800 text-slate-200 hover:bg-slate-900"
-                    href={selectedTrack ? `/songs/${selectedTrack}` : ""}
+                    href={selectedTrack ? `/songs/${selectedTrack}/cosine` : ""}
                 >
                     Search
                 </Link>
